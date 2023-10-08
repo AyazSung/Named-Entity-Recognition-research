@@ -1,1 +1,1 @@
-# EntityExtraction
+# Named entity recognition

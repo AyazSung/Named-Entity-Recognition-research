@@ -1,10 +1,8 @@
 import pandas as pd
-import numpy as np
-from sklearn.model_selection import train_test_split
 import ast
 
 
-def data_reading_and_splitting(data_path, test_size=0.2, random_state=42):
+def data_preparing(data_path):
     def load_data(data_path):
         df = pd.read_csv(data_path)
         # Remove null values if any
@@ -22,5 +20,4 @@ def data_reading_and_splitting(data_path, test_size=0.2, random_state=42):
     df = preprocess_data(load_data(data_path))
     df_final = df[['Sentence', 'Tag']]
 
-    df_train, df_test = train_test_split(df_final, test_size=test_size, random_state=random_state)
-    return [df_train, df_test]
+    return df_final

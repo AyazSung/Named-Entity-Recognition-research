@@ -10,3 +10,6 @@ df = data_parser.data_preparing(data_path)
 df_train, df_test = train_test_split(df, test_size=test_size, random_state=random_state)
 print("Train RNN model...")
 modelRNN = NER_using_RNN.NER_RNN(df_train, df_test, train_epochs=5)
+
+
+

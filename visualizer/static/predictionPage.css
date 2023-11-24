@@ -28,14 +28,14 @@
     padding: 8px;
     border-radius: 10px;
     font-size: 22px;
-    margin: 6px 3px;
     color: #5A3C1E;
+    margin-top: 8px;
 }
 .usual-word{
     font-size: 22px;
-    margin: 6px 3px;
     padding: 8px;
     color: #5A3C1E;
+    margin-top: 8px;
 }
 body {
     margin: 0;

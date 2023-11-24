@@ -1,1 +1,1 @@
-# Named-Entity-Recognition-research
+# Named Entity Recognition research

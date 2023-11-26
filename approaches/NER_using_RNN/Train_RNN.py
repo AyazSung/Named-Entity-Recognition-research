@@ -3,9 +3,10 @@ from tensorflow.keras.preprocessing.sequence import pad_sequences
 from keras.layers import Dense, Input, Bidirectional, LSTM, Embedding
 from keras.models import Model
 from keras.losses import SparseCategoricalCrossentropy
-from keras.callbacks import EarlyStopping
+import pickle
 
-def NER_RNN(df_train, df_test, train_epochs=5):
+
+def Train_RNN(df_train, df_test, train_epochs=5):
     train_targets = list(df_train.Tag.values)
     test_targets = list(df_test.Tag.values)
 
@@ -14,6 +15,10 @@ def NER_RNN(df_train, df_test, train_epochs=5):
 
     train_inputs = tokenizer.texts_to_sequences(df_train['Sentence'])
     test_inputs = tokenizer.texts_to_sequences(df_test['Sentence'])
+
+    # saving
+    with open('tokenizer.pickle', 'wb') as handle:
+        pickle.dump(tokenizer, handle, protocol=pickle.HIGHEST_PROTOCOL)
 
     word2idx = tokenizer.word_index
     V = len(word2idx)  # Vocab size
@@ -29,6 +34,9 @@ def NER_RNN(df_train, df_test, train_epochs=5):
     tag_tokenizer.fit_on_texts(train_targets)
     train_tgt_int = tag_tokenizer.texts_to_sequences(train_targets)
     test_tgt_int = tag_tokenizer.texts_to_sequences(test_targets)
+
+    with open('tag_tokenizer.pickle', 'wb') as handle:
+        pickle.dump(tag_tokenizer, handle, protocol=pickle.HIGHEST_PROTOCOL)
 
     # Max length
     max_length_train = max(len(sent) for sent in train_inputs)
@@ -65,4 +73,7 @@ def NER_RNN(df_train, df_test, train_epochs=5):
     model.fit(train_inputs_final,
               train_targets_final, epochs=train_epochs, validation_data=(test_inputs_final, test_targets_final))
 
+
     return model
+
+

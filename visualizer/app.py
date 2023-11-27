@@ -64,7 +64,25 @@ def the_largest_pref(string, list):
         if i.startswith(string):
             return i
 
+def predict_using_RNN(text):
+    import os
+    cur = os.path.abspath(os.path.join(os.path.dirname(__file__)))
+    from approaches.NER_using_RNN.Predict_RNN import predict_rnn
 
+    raw_pred = predict_rnn(text, "../approaches/NER_using_RNN")
+    pred = {'text_blocks': []}
+    text = text.split()
+    for i, ent in enumerate(raw_pred):
+        if i == len(text):
+            break
+        ent = ent.upper()
+        if ent == 'O':
+            pred['text_blocks'].append([text[i]])
+        else:
+            prob = 1.
+            description_of_the_entity = ner_tag_descriptions[the_largest_pref(ent, ner_tag_descriptions.keys())]
+            pred['text_blocks'].append([text[i], prob, description_of_the_entity])
+    return pred
 def predict_using_bert_model(text):
     global ner_tag_descriptions
     lens = [len(word) for word in text.split()]
@@ -104,6 +122,8 @@ def perform_magic():
     preds = None
     if model == 'BERT':
         preds = predict_using_bert_model(user_input)
+    elif model == "RNN":
+        preds = predict_using_RNN(user_input)
     return jsonify(preds)
 
 

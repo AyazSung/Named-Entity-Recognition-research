@@ -64,9 +64,9 @@ def the_largest_pref(string, list):
         if i.startswith(string):
             return i
 
+
 def predict_using_RNN(text):
-    import os
-    cur = os.path.abspath(os.path.join(os.path.dirname(__file__)))
+    global ner_tag_descriptions
     from approaches.NER_using_RNN.Predict_RNN import predict_rnn
 
     raw_pred = predict_rnn(text, "../approaches/NER_using_RNN")
@@ -83,14 +83,14 @@ def predict_using_RNN(text):
             description_of_the_entity = ner_tag_descriptions[the_largest_pref(ent, ner_tag_descriptions.keys())]
             pred['text_blocks'].append([text[i], prob, description_of_the_entity])
     return pred
-def predict_using_bert_model(text):
+
+
+
+
+def predict_using_BERT_models(text, path_to_model):
     global ner_tag_descriptions
-    lens = [len(word) for word in text.split()]
-    idx = [0]
-    for ln in lens:
-        idx.append(idx[-1] + ln + 1)
-    del idx[-1]
-    raw_pred = predict_bert(text, "../approaches/Using_BERT_Transformer/best_model")
+
+    raw_pred = predict_bert(text, path_to_model)
     raw_pred.sort(key=lambda x: x['start'])
     pred = {'text_blocks': []}
     prev_end = 0
@@ -111,7 +111,6 @@ def predict_using_bert_model(text):
 
     return pred
 
-
 @app.route('/perform_magic', methods=['POST'])
 def perform_magic():
     data = request.json
@@ -121,9 +120,13 @@ def perform_magic():
 
     preds = None
     if model == 'BERT':
-        preds = predict_using_bert_model(user_input)
+        preds = predict_using_BERT_models(user_input, "../approaches/Using_BERT_Transformer/best_model")
     elif model == "RNN":
         preds = predict_using_RNN(user_input)
+    elif model == "DistilBERT":
+        preds = predict_using_BERT_models(user_input, "../approaches/DistilBERT_uncased/model")
+    elif model == "Albert":
+        preds = predict_using_BERT_models(user_input, "../approaches/Albert_pre_trained/model")
     return jsonify(preds)
 
 

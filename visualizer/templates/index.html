@@ -9,8 +9,15 @@
 </head>
 <body>
   <div class="container">
+    <div class="button-container">
+      <div class="button" id="RNN">RNN</div>
+      <div class="button" id="BERT">BERT</div>
+      <div class="button" id="DistilBERT">DistilBERT</div>
+      <div class="button" id="Albert">Albert</div>
+      <div class="button" id="Spacy">Spacy</div>
+    </div>
     <textarea row='5' column='40' id="textInput" placeholder="Enter your text..."></textarea>
-          <button id="predictButton">Predict</button>
+          <button class='predictButton' id="predictButton">Predict</button>
       <div id="markedText" class="output-section"></div>
   </div>
   <script src="script.js"></script>

@@ -15,13 +15,18 @@ function predict() {
   document.body.appendChild(loadingSign);
 
   const userInput = document.getElementById("textInput").value;
+  const model = whatButtonIsPressed();
+  const body = {
+    model: model,
+    userInput: userInput
+  }
 
   fetch('/perform_magic', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
     },
-    body: JSON.stringify({ userInput }),
+    body: JSON.stringify(body),
   })
   .then(response => response.json())
   .then(result => {
@@ -35,4 +40,26 @@ function predict() {
     document.body.removeChild(loadingSign);
     console.error('Error:', error);
   });
+}
+document.addEventListener('DOMContentLoaded', function () {
+      const buttons = document.querySelectorAll('.button');
+
+      buttons[0].classList.add('active');
+
+      buttons.forEach(button => {
+        button.addEventListener('click', function () {
+          buttons.forEach(btn => btn.classList.remove('active'));
+          this.classList.add('active');
+          // You can now use this.id or other attributes to identify the pressed button
+        });
+      });
+    });
+function whatButtonIsPressed() {
+  const buttons = document.querySelectorAll('.button');
+
+  for (const button of buttons) {
+    if (button.classList.contains('active')) {
+      return button.id;
+    }
+  }
 }

@@ -29,7 +29,7 @@ textarea::placeholder {
     color: #BC8F62;
 }
 
-button {
+.predictButton {
   margin-top: 10px;
   padding: 10px 20px;
     font-size: 16px;
@@ -40,3 +40,20 @@ button {
     border-radius: 5px;
 }
 
+.button-container {
+      display: flex;
+      margin-bottom: 10px;
+    }
+
+.button {
+      cursor: pointer;
+      padding: 10px;
+      margin-right: 10px;
+      background-color: #FFF8DC;;
+      border-radius: 5px;
+      color: #5A3C1E;
+}
+
+.button.active {
+  background-color: #F5DEB3;
+}

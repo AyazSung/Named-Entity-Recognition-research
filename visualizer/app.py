@@ -8,6 +8,8 @@ ner_tag_descriptions = {
     'I-ORGANIZATION': 'Part of named entity that is name of an organization or group',
     'B-LOCATION': 'Location',
     'I-LOCATION': 'Part of named entity that is location',
+    'B-GEO': "Geographical entity",
+    'I-GEO': "Part of named entity that is geographical entity",
     'B-GPE': 'Geopolitical entity (country, region, etc.)',
     'I-GPE': 'Part of named entity that is geopolitical entity',
     'B-DATE': 'Temporal expression, including a date',
@@ -26,8 +28,8 @@ ner_tag_descriptions = {
     'I-ORDINAL': 'Part of named entity that is ordinal number',
     'B-EVENT': 'Named event or occurrence',
     'I-EVENT': 'Part of named entity that is named event or occurrence',
-    'B-WORK_OF_ART': 'Title of a creative work',
-    'I-WORK_OF_ART': 'Part of named entity that is title of a creative work',
+    'B-ART': 'Title of a creative work',
+    'I-ART': 'Part of named entity that is title of a creative work',
     'B-LAW': 'Legal reference or document',
     'I-LAW': 'Part of named entity that is legal reference or document',
     'B-LANGUAGE': 'Named language',
@@ -95,8 +97,13 @@ def predict_using_bert_model(text):
 @app.route('/perform_magic', methods=['POST'])
 def perform_magic():
     data = request.json
+    print(data)
     user_input = data.get('userInput')
-    preds = predict_using_bert_model(user_input)
+    model = data.get('model')
+
+    preds = None
+    if model == 'BERT':
+        preds = predict_using_bert_model(user_input)
     return jsonify(preds)
 
 

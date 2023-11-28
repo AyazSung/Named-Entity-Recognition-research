@@ -85,8 +85,6 @@ def predict_using_RNN(text):
     return pred
 
 
-
-
 def predict_using_BERT_models(text, path_to_model):
     global ner_tag_descriptions
 
@@ -111,6 +109,26 @@ def predict_using_BERT_models(text, path_to_model):
 
     return pred
 
+
+def predict_using_SPACY(text):
+    from approaches.SPACY.model_class import SpacyTrained
+
+    st = SpacyTrained('../approaches/SPACY/output_models')
+
+    doc = st.predict_entities(text)
+    entities = []
+    prob = 1
+    end = 0
+    for ent in doc.ents:
+        description_of_the_entity = ner_tag_descriptions[
+            the_largest_pref("B-" + ent.label_.upper(), ner_tag_descriptions.keys())]
+        nidx = text.index(ent.text, end)
+        if nidx > end:
+            entities.append([text[end:nidx]])
+        end = nidx + len(ent.text)
+        entities.append([ent.text, prob, description_of_the_entity])
+    return {'text_blocks': entities}
+
 @app.route('/perform_magic', methods=['POST'])
 def perform_magic():
     data = request.json
@@ -127,6 +145,8 @@ def perform_magic():
         preds = predict_using_BERT_models(user_input, "../approaches/DistilBERT_uncased/model")
     elif model == "Albert":
         preds = predict_using_BERT_models(user_input, "../approaches/Albert_pre_trained/model")
+    elif model == "Spacy":
+        preds = predict_using_SPACY(user_input)
     return jsonify(preds)
 
 

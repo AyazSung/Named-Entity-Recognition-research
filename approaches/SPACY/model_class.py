@@ -19,10 +19,10 @@ from tqdm import tqdm
 
 
 class SpacyTrained:
-    def __init__(self):
+    def __init__(self, output_dir):
         spacy.prefer_gpu()
         self.nlp = spacy.load("en_core_web_sm")
-        self.output_dir = 'output_models'
+        self.output_dir = output_dir
         print("Loading from", self.output_dir)
         self.nlp_updated = spacy.load(self.output_dir)
 

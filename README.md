@@ -28,6 +28,7 @@ Data sample:
 
 ![image](https://github.com/MaratMedvedev/Named-Entity-Recognition-research/assets/90756690/3184e7a3-a7fd-440f-884d-df4cacc17ad5)
 
+You see this dataset in `data/ner.csv`.
 ## How to run the visualizer?
 
 Firstly, you should install all requarements. For that purpose, you should run the following command:

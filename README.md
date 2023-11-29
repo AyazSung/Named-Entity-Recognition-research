@@ -1,6 +1,9 @@
 # Named Entity Recognition research
 
-## Dataset NER tag descriptions
+## Dataset description
+Every row in the [dataset](https://www.kaggle.com/datasets/naseralqaydeh/named-entity-recognition-ner-corpus/data) contains a complete sentence and list of NER tags for each
+word in the sentence.
+#### Each NER tag belongs to the one of the following 16 types:
 
 | Key     | Description                                             |
 | ------- | ------------------------------------------------------- |
@@ -20,3 +23,29 @@
 | I-ORG   | Part of named entity that is the name of an organization or group |
 | B-TIM   | Time expression                                         |
 | I-TIM   | Part of named entity that is a time expression          |
+
+Data sample:
+
+![image](https://github.com/MaratMedvedev/Named-Entity-Recognition-research/assets/90756690/3184e7a3-a7fd-440f-884d-df4cacc17ad5)
+
+## How to run the visualizer?
+
+Firstly, you should install all requarements. For that purpose, you should run the following command:
+
+`pip install -r requirements.txt`
+
+After that, you simply run the `visualizer/app.py` and program run our application on your localhost. 
+
+Next, you will see like this in your python console:
+~~~
+* Serving Flask app 'app'
+ * Debug mode: on
+WARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.
+ * Running on http://127.0.0.1:5000
+Press CTRL+C to quit
+...
+~~~
+Now, you just should follow the link in console. 
+Finally, you can use the our app.
+
+

@@ -1,3 +1,5 @@
+Sunagatullin Ayaz, Rail Sayfeev, Marat Medvedev
+
 # Named Entity Recognition research
 
 ## Dataset description
